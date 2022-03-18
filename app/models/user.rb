@@ -16,11 +16,20 @@ class User < ApplicationRecord
 
   has_one_attached :avatar, service: :cloudinary
 
+  # has_one_attached :s3_avatar, service: :amazon do |attachable|
+  has_one_attached :s3_avatar do |attachable|
+    attachable.variant :header, resize_to_limit: [30, 30], loader: {page: nil}
+  end
+
   scope :visible, -> { where(public: true) }
   scope :visible_or_id, ->(id) { where(public: true).or(where(id:)) }
   scope :by_name, -> { order("LOWER(name)") }
 
   validates :name, presence: true, if: :public?
+
+  def self.miha
+    order(:created_at).first
+  end
 
   def display_name
     name.presence || email

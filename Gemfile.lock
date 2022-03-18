@@ -422,7 +422,6 @@ DEPENDENCIES
   letter_opener
   listen
   memoist
-  mini_magick
   pagy
   pg
   propshaft

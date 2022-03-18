@@ -12,6 +12,7 @@ module ApplicationHelper
 
   def avatar_url(user, size)
     user.avatar.attached? ? url_for(user.avatar) : "#{user.gravatar_url}?s=#{size}&d=mp"
+    user.s3_avatar.attached? ? url_for(user.s3_avatar.variant(:header)) : "#{user.gravatar_url}?s=#{size}&d=mp"
   end
 
   def change_count
